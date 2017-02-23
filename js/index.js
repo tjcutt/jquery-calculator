@@ -39,9 +39,12 @@ $(document).ready(function() {
         //Clicking equals
         if (($(this).is('#equals'))) {
             let result = eval(fullString)
-            $(screen).text(result);
+            if (result === /0-9\.*\/+-/g) {
+                $(screen).text(result);
+            } else {
+                $(screen).text('ERROR')
+            }
 
-            //Work on not using an eval
         }
     })
 
