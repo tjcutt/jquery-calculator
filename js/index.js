@@ -3,7 +3,7 @@ $(document).ready(function() {
     // Variables
     let screen = $('#screen')
     let newN = ''
-    let fullString = '('
+    let fullString = ''
     let op = ''
     let numOrOp = false
 
@@ -14,6 +14,7 @@ $(document).ready(function() {
             numOrOp = true
             newN = $(this).text()
             fullString += newN
+            console.log(typeof(fullString));
             screen.append(newN)
         }
 
@@ -25,10 +26,19 @@ $(document).ready(function() {
         }
 
         // Clicking operators
-        if ($(this).hasClass('operator') && numOrOp && !$(this).attr('id')) {
-            op = $(this).text().replace(/÷/, '/')
+        if ($(this).hasClass('operator') && numOrOp && !$(this).attr('id') && $(this).text() === '÷') {
+            op = $(this).text()
+            let op1 = op.replace(/÷/, '/')
             screen.append(op)
-            fullString += op
+            fullString += op1
+            numOrOp = false
+        }
+
+        if ($(this).hasClass('operator') && numOrOp && !$(this).attr('id') && $(this).text() === 'x') {
+            op = $(this).text()
+            let op1 = op.replace(/x/, '*')
+            screen.append(op)
+            fullString += op1
             numOrOp = false
         }
 
@@ -37,17 +47,10 @@ $(document).ready(function() {
             screen.text('ERROR')
         }
         //Clicking equals
-        if (($(this).is('#equals'))) {
+        if ($(this).is('#equals')) {
             let result = eval(fullString)
-            if (result === /0-9\.*\/+-/g) {
-                $(screen).text(result);
-            } else {
-                $(screen).text('ERROR')
-            }
-
+            screen.text(result)
         }
     })
 
 })
-
-//Still issues with mutiple multiplication and division operators
