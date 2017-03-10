@@ -42,6 +42,13 @@ $(document).ready(function() {
             numOrOp = false
         }
 
+        if ($(this).hasClass('operator') && numOrOp && !$(this).attr('id')) {
+            op = $(this).text()
+            screen.append(op)
+            fullString += op
+            numOrOp = false
+        }
+
         // Error message for dividing by zero
         if (fullString.match(/\/0/)) {
             screen.text('ERROR')
